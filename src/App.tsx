@@ -323,14 +323,15 @@ const App = () => {
           }}
         >
         {/* 輪盤區域 */}
-        <div className="rounded-3xl shadow-2xl p-8 flex items-center justify-center" style={{ flex: '2', minWidth: 0, height: '900px', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+        <div className="rounded-3xl shadow-2xl flex items-center justify-center" style={{ flex: '2', minWidth: 0, height: '900px', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
           <div 
             className="flex"
             style={{
               flexDirection: window.innerWidth >= 768 ? 'row' : 'column',
               justifyContent: window.innerWidth >= 768 ? 'center' : 'flex-start',
               alignItems: window.innerWidth >= 768 ? 'center' : 'flex-start',
-              gap: window.innerWidth >= 768 ? '120px' : '32px'
+              gap: window.innerWidth >= 768 ? '70px' : '32px',
+              margin: '0 4rem'
             }}
           >
             {/* 左側：輪盤 */}
@@ -461,13 +462,13 @@ const App = () => {
             className="flex-1"
             style={{
               marginTop: window.innerWidth >= 768 ? '0' : '16px',
-              maxWidth: window.innerWidth >= 768 ? '400px' : 'none'
+              maxWidth: window.innerWidth >= 768 ? '500px' : 'none'
             }}
           >
             {currentPrize && (
               <div className="mb-4 p-4 bg-white rounded-xl text-center md:text-left shadow-md">
                 <p className="text-xl font-bold text-gray-800">目前抽取：{currentPrize.name}</p>
-                <p className="text-lg text-gray-700 mt-2">{currentPrize.item}</p>
+                <p className="text-2xl text-gray-700 mt-2">{currentPrize.item}</p>
                 <p className="text-base text-gray-600 mt-2">共 {currentPrize.count} 個名額</p>
               </div>
             )}
