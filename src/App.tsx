@@ -93,7 +93,7 @@ const App = () => {
     '東興電機', '竹翔泵浦', '匠益電機', '永祥泵浦', '仁偉電機',
     '泰元電機', '育昌五金', '元一行', '明泉五金', '侑鑫電機',
     '嘉源五金', '正岱電機', '建東電機', '盛輝電機', '德龍電機',
-    '百賜吉', '富巃實業', '東大五金(泉鋒)', '興龍電機', '溢泉實業',
+    '百賜吉', '富巃實業', '東大五金', '興龍電機', '溢泉實業',
     '廣源五金', '裕祥電機', '進泉五金', '信泉五金', '太詮企業',
     '耐斯五金', '紘惺企業', '正久電機', '國泰水電', '大泉行',
     '弘舜電機', '宏耘電機', '志安電機', '久建大興業', '銓勝行',
@@ -477,7 +477,7 @@ const App = () => {
               marginTop: window.innerWidth >= 768 ? '0' : '16px'
             }}
           >
-            {currentPrize && (
+            {currentPrize && !waitingForNext && (
               <div className="mb-4 p-4 bg-white rounded-xl text-center md:text-left shadow-md" style={{ width: '100%', minWidth: '400px' }}>
                 <p className="text-xl font-bold text-gray-800">目前抽取：{currentPrize.name}</p>
                 <p className="text-2xl text-gray-700 mt-2">{currentPrize.item}</p>
@@ -486,17 +486,29 @@ const App = () => {
             )}
             
             <div className="text-center md:text-left">
-            <button
-              onClick={waitingForNext ? proceedToNext : spinWheel}
-              disabled={(isSpinning || remainingNames.length === 0 || drawnNames.length >= totalDrawCount) && !waitingForNext}
-              className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-4 px-12 rounded-full text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none w-full"
-            >
-              {isSpinning ? '抽獎中...' : waitingForNext ? '進行下一獎' : drawnNames.length >= totalDrawCount ? '已抽完所有獎項' : remainingNames.length === 0 ? '名單已空' : '開始抽獎'}
-            </button>
+            {!waitingForNext && (
+              <button
+                onClick={spinWheel}
+                disabled={isSpinning || remainingNames.length === 0 || drawnNames.length >= totalDrawCount}
+                className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-4 px-12 rounded-full text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none w-full"
+              >
+                {isSpinning ? '抽獎中...' : drawnNames.length >= totalDrawCount ? '已抽完所有獎項' : remainingNames.length === 0 ? '名單已空' : '開始抽獎'}
+              </button>
+            )}
             
             {winner && (
-              <div className="mt-6 p-5 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl">
-                <p className="text-2xl font-bold text-orange-600">🎉 恭喜中獎</p>
+              <div className="mt-6 p-5 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl" style={{ width: '100%', minWidth: '400px' }}>
+                <div className="flex items-center justify-between">
+                  <p className="text-2xl font-bold text-orange-600">🎉 恭喜中獎</p>
+                  {waitingForNext && (
+                    <button
+                      onClick={proceedToNext}
+                      className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-2 px-6 rounded-full text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+                    >
+                      進行下一獎
+                    </button>
+                  )}
+                </div>
                 <div className="mt-4 p-3 bg-white rounded-lg">
                   <p className="text-xl font-bold text-red-600">{winner.prize.name}</p>
                   <p className="text-lg text-gray-700 mt-2">{winner.prize.item}</p>
